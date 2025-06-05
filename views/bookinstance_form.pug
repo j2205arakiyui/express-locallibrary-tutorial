@@ -25,7 +25,7 @@ block content
       label(for='status') 状態:
       select#status.form-control(name='status' required)
         option(value='') --状態を選ぶ--
-        each val in ['Maintenance', 'Available', 'Loaned', 'Reserved']
+        each val in ['メンテナンス', '貸出可', '貸出中', '返却済']
           if undefined===bookinstance || bookinstance.status!=val 
             option(value=val)= val
           else

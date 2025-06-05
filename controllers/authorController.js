@@ -23,13 +23,13 @@ exports.author_detail = asyncHandler(async (req, res, next) => {
 
   if (author === null) {
     // No results.
-    const err = new Error("Author not found");
+    const err = new Error("著者が見つかりませんでした");
     err.status = 404;
     return next(err);
   }
 
   res.render("author_detail", {
-    title: "Author Detail",
+    title: "著者の削除",
     author: author,
     author_books: allBooksByAuthor,
   });
@@ -82,7 +82,7 @@ exports.author_create_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render form again with sanitized values/errors messages.
       res.render("author_form", {
-        title: "Create Author",
+        title: "著者の追加",
         author: author,
         errors: errors.array(),
       });
@@ -112,7 +112,7 @@ exports.author_delete_get = asyncHandler(async (req, res, next) => {
   }
 
   res.render("author_delete", {
-    title: "Delete Author",
+    title: "著者の削除",
     author: author,
     author_books: allBooksByAuthor,
   });
@@ -129,7 +129,7 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
   if (allBooksByAuthor.length > 0) {
     // Author has books. Render in same way as for GET route.
     res.render("author_delete", {
-      title: "Delete Author",
+      title: "著者の削除",
       author: author,
       author_books: allBooksByAuthor,
     });
@@ -146,12 +146,12 @@ exports.author_update_get = asyncHandler(async (req, res, next) => {
   const author = await Author.findById(req.params.id).exec();
   if (author === null) {
     // No results.
-    const err = new Error("Author not found");
+    const err = new Error("著者が見つかりませんでした");
     err.status = 404;
     return next(err);
   }
 
-  res.render("author_form", { title: "Update Author", author: author });
+  res.render("author_form", { title: "著者のアップデート", author: author });
 });
 
 // Handle Author update on POST.
@@ -161,22 +161,22 @@ exports.author_update_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("First name must be specified.")
+    .withMessage("名を指定する必要があります。")
     .isAlphanumeric()
-    .withMessage("First name has non-alphanumeric characters."),
+    .withMessage("名に英数字以外の文字が含まれています。"),
   body("family_name")
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("Family name must be specified.")
+    .withMessage("名字を指定する必要があります。")
     .isAlphanumeric()
-    .withMessage("Family name has non-alphanumeric characters."),
-  body("date_of_birth", "Invalid date of birth")
-    .optional({ values: "falsy" })
+    .withMessage("名字に英数字以外の文字が含まれています。"),
+  body("date_of_birth", "生年月日が無効です")
+    .optional({ values: "偽物" })
     .isISO8601()
     .toDate(),
-  body("date_of_death", "Invalid date of death")
-    .optional({ values: "falsy" })
+  body("date_of_death", "死亡日が無効です")
+    .optional({ values: "偽物" })
     .isISO8601()
     .toDate(),
 
@@ -197,7 +197,7 @@ exports.author_update_post = [
     if (!errors.isEmpty()) {
       // There are errors. Render the form again with sanitized values and error messages.
       res.render("author_form", {
-        title: "Update Author",
+        title: "著者のアップデート",
         author: author,
         errors: errors.array(),
       });
