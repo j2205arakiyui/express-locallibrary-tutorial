@@ -177,7 +177,7 @@ async function createBookInstances() {
       books[0],
       "London Gollancz, 2014.",
       false,
-      "Available"
+      "貸出可"
     ),
     bookInstanceCreate(1, books[1], " Gollancz, 2011.", false, "Loaned"),
     bookInstanceCreate(2, books[2], " Gollancz, 2015.", false, false),
