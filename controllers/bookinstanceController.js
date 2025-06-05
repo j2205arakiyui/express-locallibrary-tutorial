@@ -17,7 +17,7 @@ exports.bookinstance_list = asyncHandler(async (req, res, next) => {
 // Display detail page for a specific BookInstance.
 exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
   const bookInstance = await BookInstance.findById(req.params.id)
-    .populate("本")
+    .populate("book")
     .exec();
 
   if (bookInstance === null) {
@@ -94,7 +94,7 @@ exports.bookinstance_create_post = [
 // Display BookInstance delete form on GET.
 exports.bookinstance_delete_get = asyncHandler(async (req, res, next) => {
   const bookInstance = await BookInstance.findById(req.params.id)
-    .populate("本")
+    .populate("book")
     .exec();
 
   if (bookInstance === null) {
