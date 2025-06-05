@@ -46,7 +46,7 @@ exports.book_list = asyncHandler(async (req, res, next) => {
 exports.book_detail = asyncHandler(async (req, res, next) => {
   // Get details of books, book instances for specific book
   const [book, bookInstances] = await Promise.all([
-    Book.findById(req.params.id).populate("著者").populate("ジャンル").exec(),
+    Book.findById(req.params.id).populate("author").populate("genres").exec(),
     BookInstance.find({ book: req.params.id }).exec(),
   ]);
 
@@ -91,19 +91,19 @@ exports.book_create_post = [
   },
 
   // Validate and sanitize fields.
-  body("title", "タイトルは空欄にできません。")
+  body("タイトル", "タイトルは空欄にできません。")
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("author", "著者は空欄にできません。")
+  body("著者", "著者は空欄にできません。")
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("summary", "あらすじは空欄にできません。")
+  body("あらすじ", "あらすじは空欄にできません。")
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("isbn", "ISBNは空欄にできません。").trim().isLength({ min: 1 }).escape(),
+  body("ISBN", "ISBNは空欄にできません。").trim().isLength({ min: 1 }).escape(),
   body("genre.*").escape(),
   // Process request after validation and sanitization.
 
@@ -153,7 +153,7 @@ exports.book_create_post = [
 // Display book delete form on GET.
 exports.book_delete_get = asyncHandler(async (req, res, next) => {
   const [book, bookInstances] = await Promise.all([
-    Book.findById(req.params.id).populate("著者").populate("ジャンル").exec(),
+    Book.findById(req.params.id).populate("author").populate("genres").exec(),
     BookInstance.find({ book: req.params.id }).exec(),
   ]);
 
@@ -174,7 +174,7 @@ exports.book_delete_post = asyncHandler(async (req, res, next) => {
   // Assume the post has valid id (ie no validation/sanitization).
 
   const [book, bookInstances] = await Promise.all([
-    Book.findById(req.params.id).populate("著者").populate("ジャンル").exec(),
+    Book.findById(req.params.id).populate("author").populate("genres").exec(),
     BookInstance.find({ book: req.params.id }).exec(),
   ]);
 
@@ -202,7 +202,7 @@ exports.book_delete_post = asyncHandler(async (req, res, next) => {
 exports.book_update_get = asyncHandler(async (req, res, next) => {
   // Get book, authors and genres for form.
   const [book, allAuthors, allGenres] = await Promise.all([
-    Book.findById(req.params.id).populate("著者").exec(),
+    Book.findById(req.params.id).populate("author").exec(),
     Author.find().sort({ family_name: 1 }).exec(),
     Genre.find().sort({ name: 1 }).exec(),
   ]);
