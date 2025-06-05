@@ -37,7 +37,7 @@ exports.author_detail = asyncHandler(async (req, res, next) => {
 
 // Display Author create form on GET.
 exports.author_create_get = (req, res, next) => {
-  res.render("author_form", { title: "Create Author" });
+  res.render("author_form", { title: "著者の追加" });
 };
 
 // Handle Author create on POST.
@@ -47,16 +47,16 @@ exports.author_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("First name must be specified.")
+    .withMessage("名を指定する必要があります。")
     .isAlphanumeric()
-    .withMessage("First name has non-alphanumeric characters."),
+    .withMessage("名に英数字以外の文字が含まれています。"),
   body("family_name")
     .trim()
     .isLength({ min: 1 })
     .escape()
-    .withMessage("Family name must be specified.")
+    .withMessage("名字を指定する必要があります。")
     .isAlphanumeric()
-    .withMessage("Family name has non-alphanumeric characters."),
+    .withMessage("名字に英数字以外の文字が含まれています。"),
   body("date_of_birth", "Invalid date of birth")
     .optional({ values: "falsy" })
     .isISO8601()
