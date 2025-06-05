@@ -84,20 +84,20 @@ async function bookInstanceCreate(index, book, imprint, due_back, status) {
   const bookinstance = new BookInstance(bookinstancedetail);
   await bookinstance.save();
   bookinstances[index] = bookinstance;
-  console.log(`Added bookinstance: ${imprint}`);
+  console.log(`本の現在情報を追加してください: ${imprint}`);
 }
 
 async function createGenres() {
-  console.log("Adding genres");
+  console.log("ジャンルを追加してください");
   await Promise.all([
-    genreCreate(0, "ファンタジー"),
+    genreCreate(0, "fantasy"),
     genreCreate(1, "Science Fiction"),
     genreCreate(2, "French Poetry"),
   ]);
 }
 
 async function createAuthors() {
-  console.log("Adding authors");
+  console.log("著者を追加してください");
   await Promise.all([
     authorCreate(0, "Patrick", "Rothfuss", "1973-06-06", false),
     authorCreate(1, "Ben", "Bova", "1932-11-8", false),
@@ -108,7 +108,7 @@ async function createAuthors() {
 }
 
 async function createBooks() {
-  console.log("Adding Books");
+  console.log("本を追加してください");
   await Promise.all([
     bookCreate(
       0,
@@ -170,7 +170,7 @@ async function createBooks() {
 }
 
 async function createBookInstances() {
-  console.log("Adding authors");
+  console.log("著者を追加してください");
   await Promise.all([
     bookInstanceCreate(
       0,
