@@ -7,7 +7,7 @@ block content
 
   div(style='margin-left:20px;margin-top:20px')
 
-    h2(style='font-size: 1.5rem;') Books
+    h2(style='font-size: 1.5rem;') 本
     if author_books.length
       dl
         each book in author_books
@@ -15,10 +15,10 @@ block content
             a(href=book.url) #{book.title}
           dd #{book.summary}
     else
-      p This author has no books.
+      p この著者の本はありません
 
   hr
   p
-    a(href=author.url+'/delete') Delete author
+    a(href=author.url+'/delete') 著者の削除
   p
-    a(href=author.url+'/update') Update author
+    a(href=author.url+'/update') 著者のアップデート
