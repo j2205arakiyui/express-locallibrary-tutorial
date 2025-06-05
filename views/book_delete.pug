@@ -8,7 +8,7 @@ block content
     a(href=book.author.url) #{book.author.name}
   p #[strong あらすじ:] #{book.summary}
   p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre: ]
+  p #[strong ジャンル: ]
     each val, index in book.genre
       a(href=val.url) #{val.name}
       if index < book.genre.length - 1
@@ -22,7 +22,7 @@ block content
 
     div(style='margin-left:20px;margin-top:20px')
 
-      h4 Copies
+      h4 冊数
 
       each book_copy in book_instances
         hr
@@ -32,17 +32,17 @@ block content
           p.text-danger #{book_copy.status}
         else
           p.text-warning #{book_copy.status}
-        p #[strong Imprint:] #{book_copy.imprint}
+        p #[strong 出版社:] #{book_copy.imprint}
         if book_copy.status!='Available'
-          p #[strong Due back:] #{book_copy.due_back}
-        p #[strong Id:]
+          p #[strong 返却予定:] #{book_copy.due_back}
+        p #[strong ID:]
           a(href=book_copy.url) #{book_copy._id}
 
   else
-    p Do you really want to delete this Book?
+    p 本当にこの本を削除しますか?
 
     form(method='POST')
       div.form-group
         input#id.form-control(type='hidden',name='id', value=book._id )
 
-      button.btn.btn-primary(type='submit') Delete
+      button.btn.btn-primary(type='submit') 削除
